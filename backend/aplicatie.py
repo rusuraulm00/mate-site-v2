@@ -190,5 +190,7 @@ with app.app_context():
         db.session.add_all(topics)
         db.session.commit()
 
+__all__ = ['app', 'db', 'User', 'MathTopic', 'MathProblem']
+
 if __name__ == '__main__':
     app.run(debug=True)

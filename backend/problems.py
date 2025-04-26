@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app import db, MathProblem, UserProblem
+from aplicatie import db, MathProblem, UserProblem
 from auth import token_required
 
 problems = Blueprint('problems', __name__)

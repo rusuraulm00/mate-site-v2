@@ -1,4 +1,4 @@
-from app import app, db, User, MathTopic, MathProblem
+from aplicatie import app, db, User, MathTopic, MathProblem
 from werkzeug.security import generate_password_hash
 
 def seed_database():
