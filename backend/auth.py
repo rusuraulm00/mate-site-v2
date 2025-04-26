@@ -1,6 +1,8 @@
+from functools import wraps
+
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-from aplicatie import db, User
+from models import db, User
 import jwt
 import datetime
 import os
@@ -25,6 +27,7 @@ def generate_token(user_id):
 def token_required(f):
     """Decorator for routes that require authentication"""
 
+    @wraps(f)
     def decorated(*args, **kwargs):
         token = None
 

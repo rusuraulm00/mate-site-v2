@@ -1,10 +1,10 @@
 from flask import Blueprint, request, jsonify
-from aplicatie import db, MathProblem, UserProblem
+from models import db, MathProblem, UserProblem
 from auth import token_required
 
 problems = Blueprint('problems', __name__)
 
-@problems.route('/', methods=['GET'])
+@problems.route('/', methods=['GET'],endpoint='get_problems')
 def get_problems():
     """Get all math problems, with optional filtering by topic"""
     topic_id = request.args.get('topic_id')
@@ -28,7 +28,7 @@ def get_problem(problem_id):
     problem = MathProblem.query.get_or_404(problem_id)
     return jsonify(problem.to_dict())
 
-@problems.route('/', methods=['POST'])
+@problems.route('/', methods=['POST'],endpoint='create_problems')
 @token_required
 def create_problem(current_user):
     data = request.get_json()

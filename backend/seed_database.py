@@ -1,7 +1,12 @@
-from aplicatie import app, db, User, MathTopic, MathProblem
+from app import app
 from werkzeug.security import generate_password_hash
+from models import db, User, MathTopic, MathProblem
 
 def seed_database():
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+
     """Seed the database with initial data"""
     with app.app_context():
         # Clear existing data
