@@ -5,10 +5,12 @@ from flask_migrate import Migrate
 import os
 from datetime import datetime
 from auth import auth as auth_blueprint
+from problems import problems as problems_blueprint
 
 app = Flask(__name__)
 CORS(app)
 app.register_blueprint(auth_blueprint, url_prefix='/api/auth')
+app.register_blueprint(problems_blueprint, url_prefix='/api/problems')
 
 # Database configuration
 basedir = os.path.abspath(os.path.dirname(__file__))
