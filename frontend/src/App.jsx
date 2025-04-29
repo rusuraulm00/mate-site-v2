@@ -57,8 +57,9 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          <h1>Mathblivion</h1>
-          <nav>
+          <div className="header-container">
+          <h1 className="logo">Mathblivion</h1>
+          <nav className="navbar">
             <ul>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/topics">Topics</Link></li>
@@ -77,6 +78,7 @@ function App() {
               )}
             </ul>
           </nav>
+          </div>
         </header>
         
         <main>
