@@ -17,11 +17,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key')
 def generate_token(user_id):
     """Generate a JWT token for a user"""
     payload = {
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
-        'iat': datetime.datetime.utcnow(),
+        'exp': datetime.datetime.now() + datetime.timedelta(days=1),
+        'iat': datetime.datetime.now(),
         'sub': user_id
     }
-    return jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
+    return jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
 
 def token_required(f):

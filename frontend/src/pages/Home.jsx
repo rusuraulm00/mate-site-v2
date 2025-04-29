@@ -20,7 +20,7 @@ const Home = () => {
   
   return (
     <div className="home">
-      <h2>Welcome to Mathematics Explorer</h2>
+      <h2>Welcome to Mathblivion</h2>
       <p>Discover the beauty of mathematics with interactive learning.</p>
       <p>Backend says: {message}</p>
       

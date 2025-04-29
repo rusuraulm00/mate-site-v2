@@ -327,3 +327,13 @@ footer {
   font-size: 1.1rem;
   color: #666;
 }
+
+.github-link {
+  margin-left: 10px;
+  color: #333;
+  text-decoration: none;
+}
+
+.github-link:hover {
+  color: #000;
+}
