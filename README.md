@@ -40,6 +40,7 @@ A responsive mathematics learning platform built with HTML, CSS, JavaScript and 
 5. Start the backend:
 
    ```
+   pip install -r requirements.txt
    python app.py OR run the python script from an IDE
    ```
 
