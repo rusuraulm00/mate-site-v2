@@ -14,7 +14,12 @@ const equations = [
 const Home = () => {
   const [message, setMessage] = useState('');
   const [featuredEquation, setFeaturedEquation] = useState(null);
-  
+
+  const randomizeEquation = () => {
+    const randomIndex = Math.floor(Math.random() * equations.length);
+    setFeaturedEquation(equations[randomIndex]);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,8 +29,7 @@ const Home = () => {
         console.error('Error:', error);
       }
     };
-    const randomIndex = Math.floor(Math.random() * equations.length);
-    setFeaturedEquation(equations[randomIndex]);
+    randomizeEquation();
     
     fetchData();
   }, []);
@@ -45,9 +49,12 @@ const Home = () => {
               formula={featuredEquation.formula}
             />
             <p>{featuredEquation.description}</p>
+            <button onClick={randomizeEquation} style={{marginTop: '20px', padding: '10px 20px', fontSize: '1rem'}}>
+              Randomize Equation
+            </button>
           </>
         ) : (
-            <p>Loading equation...</p>
+            <div className="loading-spinner"></div>
         )}
       </section>
     </div>

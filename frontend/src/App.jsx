@@ -59,7 +59,19 @@ function App() {
       <div className="App">
         <header className="App-header">
           <div className="header-container">
-          <h1 className="logo">Mathblivion</h1>
+            <h1 className="logo">
+              <Link to ="/" className="logo-link">
+              <span>Mathblivion</span>
+              <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="triangle-icon"
+             >
+                 <path d="M12 2L22 20H2L12 2z" />
+              </svg>
+              </Link>
+            </h1>
           <nav className="navbar">
             <ul>
               <li><Link to="/">Home</Link></li>

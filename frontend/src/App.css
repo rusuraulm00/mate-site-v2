@@ -345,22 +345,24 @@ button:disabled {
 }
 
 button {
-  padding: 15px;
-  font-size: 18px;
-  border: none;
-  border-radius: 5px;
   background-color: #007bff;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
   background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 button:active {
   background-color: #003f7f;
+  transform: scale(0.95);
 }
 
 footer {
@@ -457,5 +459,104 @@ footer {
   text-align: center;
   height: 100vh; 
   padding: 20px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
+  background-color: #f0f8ff;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #f0f8ff, #e6f7ff);
+}
+
+.home h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.home p {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.home section {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.home section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.home section p {
+  font-size: 1rem;
+  color: #444;
+}
+
+@media (max-width: 768px) {
+  .home h2 {
+    font-size: 2rem;
+  }
+
+  .home p {
+    font-size: 1rem;
+  }
+
+  .home section h3 {
+    font-size: 1.5rem;
+  }
+}
+
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  color: #fff;
+}
+
+.triangle-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+  fill: #007bff; 
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.logo-link:hover {
+  color: #003366;
+  opacity: 70%;
 }
