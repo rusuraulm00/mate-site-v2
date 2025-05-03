@@ -400,3 +400,51 @@ footer {
 .github-link:hover {
   color: #000;
 }
+
+.topics-page {
+  padding: 20px;
+}
+
+.topic {
+  margin-bottom: 30px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.topic h2 {
+  margin: 0 0 10px;
+}
+
+.topic p {
+  margin: 5px 0;
+}
+
+.topic ul {
+  list-style: none;
+  padding: 0;
+}
+
+.topic ul li {
+  margin-bottom: 10px;
+}
+
+.topic ul li h4 {
+  margin: 0;
+}
+
+.topic ul li p {
+  margin: 5px 0;
+}
+
+.topic a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.topic a:hover {
+  text-decoration: underline;
+}

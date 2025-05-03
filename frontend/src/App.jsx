@@ -10,6 +10,7 @@ import ProblemList from './pages/ProblemList';
 import ProblemDetail from './pages/ProblemDetail';
 import { getUserProfile, logoutUser } from './services/api';
 import './App.css';
+import Lessons from './pages/Lessons';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -85,6 +86,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/topics" element={<Topics />} />
+            <Route path="/topics/:topicId/lessons" element={<Lessons />} /> 
             <Route path="/problems" element={<ProblemList />} />
             <Route path="/problems/topic/:topicId" element={<ProblemList />} />
             <Route path="/problems/:problemId" element={<ProblemDetail isAuthenticated={isAuthenticated} />} />

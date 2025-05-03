@@ -107,6 +107,11 @@ def create_problem():
 
     return jsonify(problem.to_dict()), 201
 
+@app.route('/api/topics/<int:topic_id>', methods=['GET'])
+def get_topic(topic_id):
+    topic = MathTopic.query.get_or_404(topic_id)
+    return jsonify(topic.to_dict())
+
 @app.route('/api/topics/<int:topic_id>/lessons', methods=['GET'])
 def get_lessons_for_topic(topic_id):
     topic = MathTopic.query.get_or_404(topic_id)

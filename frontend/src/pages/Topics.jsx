@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MathDisplay from '../components/MathDisplay';
+import { Link } from 'react-router-dom'
 
 const Topics = () => {
   const [topics, setTopics] = useState([]);
@@ -28,17 +29,11 @@ const Topics = () => {
   return (
     <div className="topics">
       <h2>Mathematics Topics</h2>
-      
-      {topics.map(topic => (
+      {topics.map((topic) => (
         <div key={topic.id} className="topic-card">
           <h3>{topic.name}</h3>
           <p>{topic.description}</p>
-          <div className="math-example">
-            <MathDisplay 
-              inline={false} 
-              formula={mathExamples[topic.name] || 'E = mc^2'} 
-            />
-          </div>
+          <Link to={`/topics/${topic.id}/lessons`}>View Lessons</Link>
         </div>
       ))}
     </div>
