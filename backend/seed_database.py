@@ -1,6 +1,6 @@
 from app import app
 from werkzeug.security import generate_password_hash
-from models import db, User, MathTopic, MathProblem
+from models import db, User, MathTopic, MathProblem, Lesson
 
 def seed_database():
     with app.app_context():
@@ -33,6 +33,36 @@ def seed_database():
         geometry = MathTopic.query.filter_by(name="Geometry").first()
         statistics = MathTopic.query.filter_by(name="Statistics").first()
 
+        # Create lessons
+        lessons = [
+            Lesson(
+                title="Introduction to Algebra",
+                content="This lesson covers the basics of algebra, including variables, expressions, and equations.",
+                topic_id=algebra.id
+            ),
+            Lesson(
+                title="Advanced Algebra",
+                content="This lesson dives into advanced algebra topics such as quadratic equations and polynomials.",
+                topic_id=algebra.id
+            ),
+            Lesson(
+                title="Introduction to Calculus",
+                content="This lesson introduces the concepts of limits, derivatives, and integrals.",
+                topic_id=calculus.id
+            ),
+            Lesson(
+                title="Geometry Basics",
+                content="This lesson covers the basics of geometry, including points, lines, and angles.",
+                topic_id=geometry.id
+            ),
+            Lesson(
+                title="Introduction to Statistics",
+                content="This lesson introduces statistical concepts such as mean, median, and mode.",
+                topic_id=statistics.id
+            )
+        ]
+        db.session.add_all(lessons)
+        
         # Create problems
         problems = [
             MathProblem(

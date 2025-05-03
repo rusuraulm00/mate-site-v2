@@ -4,7 +4,7 @@ from flask_migrate import Migrate
 import os
 from auth import auth as auth_blueprint
 from problems import problems as problems_blueprint
-from models import db, User, MathTopic, MathProblem, init_db
+from models import Lesson, db, User, MathTopic, MathProblem, init_db
 
 app = Flask(__name__)
 CORS(app)
@@ -106,6 +106,31 @@ def create_problem():
     db.session.commit()
 
     return jsonify(problem.to_dict()), 201
+
+@app.route('/api/topics/<int:topic_id>/lessons', methods=['GET'])
+def get_lessons_for_topic(topic_id):
+    topic = MathTopic.query.get_or_404(topic_id)
+    lessons = Lesson.query.filter_by(topic_id=topic_id).all()
+    return jsonify([lesson.to_dict() for lesson in lessons])
+
+@app.route('/api/topics/<int:topic_id>/lessons', methods=['POST'])
+def create_lesson_for_topic(topic_id):
+    topic = MathTopic.query.get_or_404(topic_id)
+    data = request.get_json()
+
+    if not data or not data.get('title') or not data.get('content'):
+        return jsonify({"error": "Title and content are required"}), 400
+
+    lesson = Lesson(
+        title=data.get('title'),
+        content=data.get('content'),
+        topic_id=topic_id
+    )
+
+    db.session.add(lesson)
+    db.session.commit()
+
+    return jsonify(lesson.to_dict()), 201
 
 # Initialize database
 with app.app_context():

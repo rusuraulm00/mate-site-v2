@@ -25,11 +25,30 @@ class User(db.Model):
             'created_at': self.created_at.isoformat()
         }
 
+class Lesson(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    topic_id = db.Column(db.Integer, db.ForeignKey('math_topic.id'))
+    created_at = db.Column(db.DateTime, default=datetime.now)
+
+    def __repr__(self):
+        return f'<Lesson {self.title}>'
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'content': self.content,
+            'topic_id': self.topic_id,
+            'created_at': self.created_at.isoformat()
+        }
 class MathTopic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True, nullable=False)
     description = db.Column(db.Text)
     problems = db.relationship('MathProblem', backref='topic', lazy='dynamic')
+    lessons = db.relationship('Lesson', backref='topic',lazy='dynamic')
 
     def __repr__(self):
         return f'<Topic {self.name}>'
@@ -38,7 +57,8 @@ class MathTopic(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'description': self.description
+            'description': self.description,
+            'lessons':[lesson.to_dict() for lesson in self.lessons]
         }
 
 class MathProblem(db.Model):
