@@ -593,3 +593,21 @@ footer {
   color: #003366;
   opacity: 70%;
 }
+
+@media (max-width: 768px) {
+  .topics {
+    padding: 10px;
+  }
+
+  .topic-card {
+    padding: 15px;
+  }
+
+  .topic-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .topic-card p {
+    font-size: 0.9rem;
+  }
+}
