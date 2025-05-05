@@ -69,7 +69,12 @@ class MathProblem(db.Model):
     difficulty = db.Column(db.Integer, default=1)  # 1-5 scale
     topic_id = db.Column(db.Integer, db.ForeignKey('math_topic.id'))
     created_at = db.Column(db.DateTime, default=datetime.now)
-    choices = db.relationship('ProblemChoice', backref='problem', lazy='dynamic')
+    choices = db.relationship(
+        'ProblemChoice',
+        backref='problem',
+        lazy='dynamic',
+        foreign_keys='ProblemChoice.problem_id'  # Specify the foreign key explicitly
+    )
     correct_choice_id = db.Column(db.Integer, db.ForeignKey('problem_choice.id'))
 
     def __repr__(self):
