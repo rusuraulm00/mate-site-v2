@@ -67,6 +67,7 @@ def seed_database():
         problem1 = MathProblem(
             title="What is the derivative of x^2?",
             content="Choose the correct answer:",
+            solution="The derivative of x^2 is 2x.",
             difficulty=2,
             topic_id=calculus.id
         )
@@ -89,6 +90,7 @@ def seed_database():
         problem2 = MathProblem(
             title="What is the area of a triangle with base 5 and height 10?",
             content="Choose the correct answer:",
+            solution="The area of a triangle is calculated as (base * height) / 2. For base=5 and height=10, the area is 25.",
             difficulty=1,
             topic_id=geometry.id
         )

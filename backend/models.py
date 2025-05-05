@@ -73,9 +73,13 @@ class MathProblem(db.Model):
         'ProblemChoice',
         backref='problem',
         lazy='dynamic',
-        foreign_keys='ProblemChoice.problem_id'  # Specify the foreign key explicitly
+        foreign_keys='ProblemChoice.problem_id'  
     )
-    correct_choice_id = db.Column(db.Integer, db.ForeignKey('problem_choice.id'))
+    correct_choice_id = db.Column(
+        db.Integer,
+        db.ForeignKey('problem_choice.id', use_alter=True),  
+        nullable=True
+    )
 
     def __repr__(self):
         return f'<Problem {self.title}>'
@@ -95,7 +99,10 @@ class MathProblem(db.Model):
 class ProblemChoice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(255), nullable=False)
-    problem_id = db.Column(db.Integer, db.ForeignKey('math_problem.id'))
+    problem_id = db.Column(
+        db.Integer,
+        db.ForeignKey('math_problem.id', use_alter=True)  
+    )
 
     def __repr__(self):
         return f'<Choice {self.text}>'
