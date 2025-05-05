@@ -69,6 +69,8 @@ class MathProblem(db.Model):
     difficulty = db.Column(db.Integer, default=1)  # 1-5 scale
     topic_id = db.Column(db.Integer, db.ForeignKey('math_topic.id'))
     created_at = db.Column(db.DateTime, default=datetime.now)
+    choices = db.relationship('ProblemChoice', backref='problem', lazy='dynamic')
+    correct_choice_id = db.Column(db.Integer, db.ForeignKey('problem_choice.id'))
 
     def __repr__(self):
         return f'<Problem {self.title}>'
@@ -80,7 +82,24 @@ class MathProblem(db.Model):
             'content': self.content,
             'difficulty': self.difficulty,
             'topic_id': self.topic_id,
-            'created_at': self.created_at.isoformat()
+            'created_at': self.created_at.isoformat(),
+            'choices': [choice.to_dict() for choice in self.choices],
+            'correct_choice_id': self.correct_choice_id
+        }
+    
+class ProblemChoice(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(255), nullable=False)
+    problem_id = db.Column(db.Integer, db.ForeignKey('math_problem.id'))
+
+    def __repr__(self):
+        return f'<Choice {self.text}>'
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'text': self.text,
+            'problem_id': self.problem_id
         }
 
 class UserProblem(db.Model):

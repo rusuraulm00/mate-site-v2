@@ -1,6 +1,6 @@
 from app import app
 from werkzeug.security import generate_password_hash
-from models import db, User, MathTopic, MathProblem, Lesson
+from models import db, User, MathTopic, MathProblem, Lesson, ProblemChoice
 
 def seed_database():
     with app.app_context():
@@ -63,38 +63,49 @@ def seed_database():
         ]
         db.session.add_all(lessons)
         
-        # Create problems
-        problems = [
-            MathProblem(
-                title="Solving Quadratic Equations",
-                content="Solve the quadratic equation: $ax^2 + bx + c = 0$ where $a=1$, $b=5$, and $c=6$.",
-                solution="Using the quadratic formula: $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$\nSubstituting the values: $x = \\frac{-5 \\pm \\sqrt{5^2 - 4 \\cdot 1 \\cdot 6}}{2 \\cdot 1}$\n$x = \\frac{-5 \\pm \\sqrt{25 - 24}}{2}$\n$x = \\frac{-5 \\pm \\sqrt{1}}{2}$\n$x = \\frac{-5 \\pm 1}{2}$\nSo, $x = -3$ or $x = -2$",
-                difficulty=2,
-                topic_id=algebra.id
-            ),
-            MathProblem(
-                title="Derivative of a Function",
-                content="Find the derivative of $f(x) = 3x^4 - 2x^3 + 5x - 7$.",
-                solution="Using the power rule and linearity of differentiation:\n$f'(x) = 3 \\cdot 4 \\cdot x^{4-1} - 2 \\cdot 3 \\cdot x^{3-1} + 5 \\cdot x^{1-1} - 0$\n$f'(x) = 12x^3 - 6x^2 + 5$",
-                difficulty=3,
-                topic_id=calculus.id
-            ),
-            MathProblem(
-                title="Area of a Triangle",
-                content="Calculate the area of a triangle with sides of length 3, 4, and 5 units.",
-                solution="This is a 3-4-5 right triangle.\nUsing the formula $A = \\frac{1}{2} \\cdot base \\cdot height$\n$A = \\frac{1}{2} \\cdot 3 \\cdot 4 = 6$ square units\nAlternatively, using Heron's formula with $s = \\frac{3+4+5}{2} = 6$:\n$A = \\sqrt{s(s-a)(s-b)(s-c)} = \\sqrt{6 \\cdot 3 \\cdot 2 \\cdot 1} = \\sqrt{36} = 6$ square units",
-                difficulty=2,
-                topic_id=geometry.id
-            ),
-            MathProblem(
-                title="Standard Deviation",
-                content="Calculate the standard deviation of the dataset: $\\{4, 7, 8, 9, 10, 12\\}$.",
-                solution="Step 1: Find the mean:\n$\\mu = \\frac{4+7+8+9+10+12}{6} = \\frac{50}{6} = 8.33$\nStep 2: Find the squared deviations from the mean:\n$(4-8.33)^2 = 18.77$\n$(7-8.33)^2 = 1.77$\n$(8-8.33)^2 = 0.11$\n$(9-8.33)^2 = 0.45$\n$(10-8.33)^2 = 2.78$\n$(12-8.33)^2 = 13.45$\nStep 3: Find the mean of the squared deviations:\n$\\sigma^2 = \\frac{18.77+1.77+0.11+0.45+2.78+13.45}{6} = \\frac{37.33}{6} = 6.22$\nStep 4: Take the square root of the variance:\n$\\sigma = \\sqrt{6.22} \\approx 2.49$",
-                difficulty=4,
-                topic_id=statistics.id
-            )
-        ]
-        db.session.add_all(problems)
+        # Create problems with choices
+        problem1 = MathProblem(
+            title="What is the derivative of x^2?",
+            content="Choose the correct answer:",
+            difficulty=2,
+            topic_id=calculus.id
+        )
+        db.session.add(problem1)
+        db.session.commit()
+
+        # Add choices for problem1
+        choice1 = ProblemChoice(text="2x", problem_id=problem1.id)
+        choice2 = ProblemChoice(text="x^2", problem_id=problem1.id)
+        choice3 = ProblemChoice(text="1", problem_id=problem1.id)
+        choice4 = ProblemChoice(text="2", problem_id=problem1.id)
+        db.session.add_all([choice1, choice2, choice3, choice4])
+        db.session.commit()
+
+        # Set the correct choice for problem1
+        problem1.correct_choice_id = choice1.id
+        db.session.commit()
+
+        # Create another problem with choices
+        problem2 = MathProblem(
+            title="What is the area of a triangle with base 5 and height 10?",
+            content="Choose the correct answer:",
+            difficulty=1,
+            topic_id=geometry.id
+        )
+        db.session.add(problem2)
+        db.session.commit()
+
+        # Add choices for problem2
+        choice1 = ProblemChoice(text="25", problem_id=problem2.id)
+        choice2 = ProblemChoice(text="50", problem_id=problem2.id)
+        choice3 = ProblemChoice(text="75", problem_id=problem2.id)
+        choice4 = ProblemChoice(text="100", problem_id=problem2.id)
+        db.session.add_all([choice1, choice2, choice3, choice4])
+        db.session.commit()
+
+        # Set the correct choice for problem2
+        problem2.correct_choice_id = choice2.id
+        db.session.commit()
 
         # Create a test user
         test_user = User(
