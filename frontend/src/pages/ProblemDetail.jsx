@@ -7,11 +7,10 @@ const ProblemDetail = ({ isAuthenticated }) => {
   const { problemId } = useParams();
   const navigate = useNavigate();
   const [problem, setProblem] = useState(null);
-  const [userSolution, setUserSolution] = useState('');
+  const [selectedChoice, setSelectedChoice] = useState(null);
   const [feedback, setFeedback] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchProblem = async () => {
@@ -38,21 +37,20 @@ const ProblemDetail = ({ isAuthenticated }) => {
       return;
     }
 
-    setSubmitting(true);
-    setFeedback(null);
-    
-    try {
-      const result = await submitSolution(problemId, userSolution);
-      setFeedback(result);
-    } catch (error) {
-      console.error('Error submitting solution:', error);
-      setFeedback({
-        is_correct: false,
-        error: 'Failed to submit solution. Please try again.'
-      });
-    } finally {
-      setSubmitting(false);
+    if (selectedChoice === null) {
+      setFeedback({ is_correct: false, message: 'Please select an answer.' });
+      return;
     }
+
+    const isCorrect = selectedChoice === problem.correct_choice_id;
+    setFeedback({
+      is_correct: isCorrect,
+      message: isCorrect
+        ? 'Correct! Well done!'
+        : `Incorrect. The correct answer is: ${
+            problem.choices.find((choice) => choice.id === problem.correct_choice_id).text
+          }`,
+    });
   };
 
   if (loading) {
@@ -76,43 +74,39 @@ const ProblemDetail = ({ isAuthenticated }) => {
         {Array(5 - problem.difficulty).fill('☆').join('')}
       </div>
       
-      <div className="problem-content">
+      {/* <div className="problem-content">
         <MathDisplay inline={false} formula={problem.content} />
-      </div>
+      </div> */}
       
       <form onSubmit={handleSubmit} className="solution-form">
-        <h3>Your Solution</h3>
-        <p className="hint">
-          Enter your solution using LaTeX notation for mathematical expressions.
-        </p>
-        
-        <textarea
-          value={userSolution}
-          onChange={(e) => setUserSolution(e.target.value)}
-          rows={8}
-          placeholder="Enter your solution here..."
-          required
-        />
-        
-        <button type="submit" disabled={submitting}>
-          {submitting ? 'Submitting...' : 'Submit Solution'}
-        </button>
+        <h3>Choose the correct answer: </h3>
+        <div className="choices">
+          {problem.choices.map((choice) => (
+            <label key={choice.id} className="choice">
+              <input
+                type="radio"
+                name="choice"
+                value={choice.id}
+                checked={selectedChoice === choice.id}
+                onChange={() => setSelectedChoice(choice.id)}
+              />
+              {choice.text}
+            </label>
+          ))}
+        </div>
+
+        <button type="submit">Submit Answer</button>
       </form>
       
       {feedback && (
         <div className={`feedback ${feedback.is_correct ? 'correct' : 'incorrect'}`}>
           <h3>{feedback.is_correct ? 'Correct!' : 'Not quite right'}</h3>
           
-          {feedback.is_correct ? (
-            <p>Great job! Your solution is correct.</p>
-          ) : (
-            <div className="solution-hint">
-              <p>Keep trying! Here's the correct solution:</p>
-              <div className="correct-solution">
-                <MathDisplay inline={false} formula={feedback.solution} />
-              </div>
-            </div>
-          )}
+          {feedback && (
+        <div className={`feedback ${feedback.is_correct ? 'correct' : 'incorrect'}`}>
+          <p>{feedback.message}</p>
+        </div>
+      )}
         </div>
       )}
     </div>

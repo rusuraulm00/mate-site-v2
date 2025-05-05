@@ -647,3 +647,30 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+.choices {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.choice {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.feedback {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.feedback.correct {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.feedback.incorrect {
+  background-color: #f8d7da;
+  color: #721c24;
+}

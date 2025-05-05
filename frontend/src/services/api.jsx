@@ -97,10 +97,10 @@ export const getProblem = async (problemId) => {
   }
 };
 
-export const submitSolution = async (problemId, solution) => {
+export const submitSolution = async (problemId, choiceId) => {
   try {
     const response = await api.post(`/problems/${problemId}/solution`, {
-      user_solution: solution
+      user_solution: choiceId
     });
     return response.data;
   } catch (error) {
