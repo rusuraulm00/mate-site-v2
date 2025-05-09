@@ -63,7 +63,7 @@ def seed_database():
         ]
         db.session.add_all(lessons)
         
-        # Create problems with choices
+        # Create problem with choices
         problem1 = MathProblem(
             title="What is the derivative of x^2?",
             content="Choose the correct answer:",
@@ -107,6 +107,46 @@ def seed_database():
 
         # Set the correct choice for problem2
         problem2.correct_choice_id = choice2.id
+        db.session.commit()
+
+        problem3 = MathProblem(
+            title="What is the probability of rolling a 4 on a fair six-sided die?",
+            content="Choose the correct answer:",
+            solution="The probability is 1/6 because there is one favorable outcome and six possible outcomes.",
+            difficulty=1,
+            topic_id=statistics.id
+        )
+        db.session.add(problem3)
+        db.session.commit()
+
+        choice1 = ProblemChoice(text="1/6", problem_id=problem3.id)
+        choice2 = ProblemChoice(text="1/4", problem_id=problem3.id)
+        choice3 = ProblemChoice(text="1/2", problem_id=problem3.id)
+        choice4 = ProblemChoice(text="1/3", problem_id=problem3.id)
+        db.session.add_all([choice1, choice2, choice3, choice4])
+        db.session.commit()
+
+        problem3.correct_choice_id = choice1.id
+        db.session.commit()
+
+        problem4 = MathProblem(
+            title="What is the variance of the data set {2, 4, 6, 8}?",
+            content="Choose the correct answer:",
+            solution="The variance is 5 because the mean is 5, and the squared deviations are 9, 1, 1, and 9, which average to 5.",
+            difficulty=2,
+            topic_id=statistics.id
+        )
+        db.session.add(problem4)
+        db.session.commit()
+
+        choice1 = ProblemChoice(text="5", problem_id=problem4.id)
+        choice2 = ProblemChoice(text="4", problem_id=problem4.id)
+        choice3 = ProblemChoice(text="6", problem_id=problem4.id)
+        choice4 = ProblemChoice(text="7", problem_id=problem4.id)
+        db.session.add_all([choice1, choice2, choice3, choice4])
+        db.session.commit()
+
+        problem4.correct_choice_id = choice1.id
         db.session.commit()
 
         # Create a test user
