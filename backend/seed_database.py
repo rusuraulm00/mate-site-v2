@@ -149,6 +149,79 @@ def seed_database():
         problem4.correct_choice_id = choice1.id
         db.session.commit()
 
+        problem5 = MathProblem(
+            title="What is the derivative of 3x³ + 2x² - x + 5?",
+            content="Choose the correct answer:",
+            solution="The derivative is 9x² + 4x - 1.",
+            difficulty=2,
+            topic_id=calculus.id
+        )
+        problem6 = MathProblem(
+            title="What is the integral of 7 with respect to x?",
+            content="Choose the correct answer:",
+            solution="The integral is 7x + C, where C is the constant of integration.",
+            difficulty=1,
+            topic_id=calculus.id
+        )
+        problem7 = MathProblem(
+            title="What is the derivative of sin(2x)?",
+            content="Choose the correct answer:",
+            solution="The derivative is 2cos(2x) using the chain rule.",
+            difficulty=3,
+            topic_id=calculus.id
+        )
+        problem8 = MathProblem(
+            title="What is the definite integral of x² from 0 to 2?",
+            content="Choose the correct answer:",
+            solution="The integral is (1/3)x³ evaluated from 0 to 2, which equals 8/3.",
+            difficulty=3,
+            topic_id=calculus.id
+        )
+        db.session.add_all([problem5, problem6, problem7, problem8])
+        db.session.commit()
+
+        choices1 = [
+            ProblemChoice(text="9x² + 4x - 1", problem_id=problem5.id),
+            ProblemChoice(text="6x² + 4x - 1", problem_id=problem5.id),
+            ProblemChoice(text="9x² + 2x - 1", problem_id=problem5.id),
+            ProblemChoice(text="3x² + 4x - 1", problem_id=problem5.id)
+        ]
+        db.session.add_all(choices1)
+        db.session.commit()
+        problem5.correct_choice_id = choices1[0].id
+
+        choices2 = [
+            ProblemChoice(text="7x + C", problem_id=problem6.id),
+            ProblemChoice(text="7 + C", problem_id=problem6.id),
+            ProblemChoice(text="7x", problem_id=problem6.id),
+            ProblemChoice(text="C", problem_id=problem6.id)
+        ]
+        db.session.add_all(choices2)
+        db.session.commit()
+        problem6.correct_choice_id = choices2[0].id
+
+        choices3 = [
+            ProblemChoice(text="2cos(2x)", problem_id=problem7.id),
+            ProblemChoice(text="cos(2x)", problem_id=problem7.id),
+            ProblemChoice(text="2sin(2x)", problem_id=problem7.id),
+            ProblemChoice(text="-2sin(2x)", problem_id=problem7.id)
+        ]
+        db.session.add_all(choices3)
+        db.session.commit()
+        problem7.correct_choice_id = choices3[0].id
+
+        choices4 = [
+            ProblemChoice(text="8/3", problem_id=problem8.id),
+            ProblemChoice(text="4", problem_id=problem8.id),
+            ProblemChoice(text="16/3", problem_id=problem8.id),
+            ProblemChoice(text="2", problem_id=problem8.id)
+        ]
+        db.session.add_all(choices4)
+        db.session.commit()
+        problem8.correct_choice_id = choices4[0].id
+
+        db.session.commit()
+
         # Create a test user
         test_user = User(
             username="testuser",
