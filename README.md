@@ -30,28 +30,21 @@ A responsive mathematics learning platform built with HTML, CSS, JavaScript and 
    npm install
    ```
 
-4. Initialize the database:
-
-   ```
-   cd backend
-   python seed_database.py OR run the python script from an IDE
-   ```
-
-5. Start the backend:
+4. Start the backend:
 
    ```
    pip install -r requirements.txt
    python app.py OR run the python script from an IDE
    ```
 
-6. Start the frontend:
+5. Start the frontend:
 
    ```
    cd frontend
    npm start
    ```
 
-7. The application should now be running with:
+6. The application should now be running with:
 
    Backend: http://localhost:5000
    Frontend: http://localhost:3000
