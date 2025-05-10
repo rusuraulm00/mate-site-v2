@@ -27,7 +27,7 @@ A responsive mathematics learning platform built with HTML, CSS, JavaScript and 
 
    ```
    cd frontend
-   npm install
+   npm install # use npm install --force if you get errors
    ```
 
 4. Start the backend:
