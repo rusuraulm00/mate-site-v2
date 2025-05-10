@@ -33,6 +33,9 @@ A responsive mathematics learning platform built with HTML, CSS, JavaScript and 
 4. Start the backend:
 
    ```
+   python -m venv myenv OR pyton3 -m venv myenv
+   source myenv/bin/activate (ON LINUX)
+   use: myenv\Scripts\activate (ON WINDOWS)
    pip install -r requirements.txt
    python app.py OR run the python script from an IDE
    ```
