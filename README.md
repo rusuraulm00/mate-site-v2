@@ -37,7 +37,8 @@ A responsive mathematics learning platform built with HTML, CSS, JavaScript and 
    source myenv/bin/activate (ON LINUX)
    use: myenv\Scripts\activate (ON WINDOWS)
    pip install -r requirements.txt
-   python app.py OR run the python script from an IDE
+   python app.py OR run the python script from an IDE #if you get an ModuleNotFoundError, please use pip install module_name
+
    ```
 
 5. Start the frontend:
